@@ -34,8 +34,6 @@ public class UserController {
 
         String result = null;
 
-        //Log.log(user.toString());
-
         if (user != null){
             result = "redirect:/selectFiles";
 
@@ -45,4 +43,10 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest req){
+        req.getSession().removeAttribute(Constants.USER_SESSION);
+
+        return "redirect:/login.jsp";
+    }
 }

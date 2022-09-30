@@ -24,11 +24,7 @@ public class FileController {
     public String selectFiles(Model model, HttpServletRequest req){
         User user = (User) req.getSession().getAttribute(Constants.USER_SESSION);
 
-        //Log.log(user.toString());
-
         List<File> files = fileService.getFileByUserIdandName(user.getId(), null);
-
-        //Log.log(files.toString());
 
         model.addAttribute(Constants.FILES,files);
 
