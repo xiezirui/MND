@@ -1,22 +1,14 @@
 package com.mnd.controller;
 
-import com.mnd.pojo.File;
 import com.mnd.pojo.User;
 import com.mnd.service.UserService;
-import com.mnd.until.Constants;
-import com.mnd.until.Log.Log;
+import com.mnd.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.xml.soap.SAAJMetaFactory;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Controller
@@ -28,7 +20,7 @@ public class UserController {
     private FileController fileController;
 
     @RequestMapping("/login")
-    public String login(Model model, String email, String password, HttpServletRequest req){
+    public String login(String email, String password, HttpServletRequest req){
 
         User user = userService.getUser(email, password);
 
@@ -48,5 +40,20 @@ public class UserController {
         req.getSession().removeAttribute(Constants.USER_SESSION);
 
         return "redirect:/login.jsp";
+    }
+
+    @RequestMapping("/toHome")
+    public String toHomePage(){
+        return "redirect:/selectFiles";
+    }
+
+    @RequestMapping("/toUp")
+    public String toUploadFile(){
+        return "uploadFile";
+    }
+
+    @RequestMapping("/toShare")
+    public String toShareFile(){
+        return "redirect:/selectShare ";
     }
 }

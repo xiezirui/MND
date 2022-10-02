@@ -1,4 +1,4 @@
-package com.mnd.until;
+package com.mnd.util;
 
 public class Constants {
     public final static String USER_SESSION = "USER_SESSION";

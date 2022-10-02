@@ -2,14 +2,10 @@ package com.mnd.service;
 
 import com.mnd.dao.UserMapper;
 import com.mnd.pojo.User;
-import com.mnd.until.GetUserId;
-import org.apache.ibatis.session.SqlSession;
-import org.junit.Test;
+import com.mnd.util.GetUserId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 
 @Service
 public class UserServiceImpl implements UserService {

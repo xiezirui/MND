@@ -1,4 +1,4 @@
-package com.mnd.until;
+package com.mnd.util;
 
 import java.util.UUID;
 

@@ -14,10 +14,9 @@
 
 ${MESSAGE}
 
-<form action="${pageContext.request.contextPath}/file.do" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="method" value="upload">
-    <div>此处上传:<input type="file" name="uploadFile"></div>
-    <div><input type="submit" value="上传"></div>
+<form action="${pageContext.request.contextPath}/upload" enctype="multipart/form-data" method="post">
+    <input type="file" name="file"/>
+    <input type="submit">
 </form>
 
 

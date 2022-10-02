@@ -34,8 +34,8 @@
 </div>
 
 
-<a class="file-upload" href="/jsp/uploadFile.jsp"><img src="/static/img/icons/upload/fileUpload-icon.svg" alt="fileUpload-icon"></a>
-<a class="file-share" href="/file.do?method=showShareFile"><img src="/static/img/icons/share/fileShareState-icon.svg" alt="share"></a>
+<a class="file-upload" href="/toUp"><img src="/static/img/icons/upload/fileUpload-icon.svg" alt="fileUpload-icon"></a>
+<a class="file-share" href="/toShare"><img src="/static/img/icons/share/fileShareState-icon.svg" alt="share"></a>
 <a class="file-download" href="/jsp/downloadFile.jsp">文件下载</a>
 
 <!--用户已上传文件列表-->

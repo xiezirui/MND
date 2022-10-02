@@ -15,7 +15,7 @@
     <link type="text/css" rel="stylesheet" href="/css/public.css">
 </head>
 <body>
-<div class="returnIcon"><a href="/user.do?method=showFiles">返回</a></div>
+<div class="returnIcon"><a href="/toHome">返回</a></div>
 
 
 <table class="sharefilelist" style="left: 8px">
