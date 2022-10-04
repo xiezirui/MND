@@ -71,16 +71,20 @@
             <td width="100px">
                 <span>
                     <form action="${pageContext.request.contextPath}/download" method="get">
-                        <input type="hidden" value="download" name="method">
                         <input type="hidden" value="${file.fileAddress}" name="address">
                         <input type="hidden" value="${file.fileName}" name="fileName">
                         <input type="submit" value="下载">
                     </form>
                 </span>
-                <span><button id="deleteButton" value="${file.fileAddress},${file.fileName}" onclick="delfile()">删除</button></span>
+                <span>
+                    <form action="${pageContext.request.contextPath}/delete" method="get">
+                        <input type="hidden" value="${file.fileAddress}" name="address">
+                        <input type="hidden" value="${file.fileName}" name="fileName">
+                        <input type="submit" value="删除">
+                    </form>
+                </span>
                 <span>
                     <form action="${pageContext.request.contextPath}/file.do">
-                        <input type="hidden" name="method" value="fileInfo">
                         <input type="hidden" name="address" value="${file.fileAddress}"/>
                         <input type="submit" value="信息">
                     </form>

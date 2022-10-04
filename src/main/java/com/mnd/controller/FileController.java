@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-//import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -77,6 +75,7 @@ public class FileController {
         //上传文件地址
         System.out.println("上传文件保存地址："+realPath);
         //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
+
         file.transferTo(new java.io.File(realPath +"/"+ file.getOriginalFilename()));
         //在数据库中添加文件数据
         fileService.fileUpload(user.getId(),file.getOriginalFilename(),filePath,byteConversion.byteToOthers(file.getSize()),file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
@@ -114,6 +113,22 @@ public class FileController {
         out.close();
         input.close();
         return "OK";
+    }
+
+    @RequestMapping("delete")
+    public String fileDelete(HttpServletRequest req,String address,String fileName){
+
+        String fileUrl = req.getSession().getServletContext().getRealPath("") + "WEB-INF\\upload\\" + address + "\\" + fileName;
+        String fileUrlpar = req.getSession().getServletContext().getRealPath("") + "WEB-INF\\upload\\" + address;
+
+        new java.io.File(fileUrl).delete();
+        new java.io.File(fileUrlpar).delete();
+
+
+        int i = fileService.deleteFile(address);
+
+        return "redirect:/selectFiles";
+
     }
 
 }

@@ -19,5 +19,5 @@ function delfile() {
     var fileAddress = fileAll.substr(0,fileAll.indexOf(","));
     var fileName = fileAll.substring(fileAll.indexOf(",") + 1);
 
-    window.location.href = "http://localhost:8081/file.do?method=deleteFile&address=" + fileAddress + "&name=" + fileName;
+    window.location.href = "http://localhost:8081/delete?address=" + fileAddress + "&name=" + fileName;
 }
