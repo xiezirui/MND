@@ -70,10 +70,10 @@
             </td>
             <td width="100px">
                 <span>
-                    <form action="${pageContext.request.contextPath}/file.do" method="get">
+                    <form action="${pageContext.request.contextPath}/download" method="get">
                         <input type="hidden" value="download" name="method">
                         <input type="hidden" value="${file.fileAddress}" name="address">
-                        <input type="hidden" value="${file.fileName}" name="name">
+                        <input type="hidden" value="${file.fileName}" name="fileName">
                         <input type="submit" value="下载">
                     </form>
                 </span>

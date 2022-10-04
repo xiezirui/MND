@@ -6,19 +6,23 @@ import com.mnd.pojo.User;
 import com.mnd.service.FileService;
 import com.mnd.util.ByteConversion;
 import com.mnd.util.Constants;
+import com.mnd.util.Log.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 //import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.UUID;
 
@@ -55,7 +59,7 @@ public class FileController {
     }
 
     @RequestMapping("/upload")
-    public String fileUpload2(@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
+    public String fileUpload(@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
         //存放地址
         String uuidPATH = UUID.randomUUID().toString();
         String timePATH = String.valueOf(System.currentTimeMillis());
@@ -80,5 +84,36 @@ public class FileController {
         return "redirect:/selectFiles";
     }
 
+    @RequestMapping(value = "download")
+    @ResponseBody
+    public String fileDownload(String address, String fileName, HttpServletResponse resp , HttpServletRequest req) throws IOException {
+
+        Log.log(address);
+        Log.log(fileName);
+        //要下载的图片地址
+        String path = req.getSession().getServletContext().getRealPath("WEB-INF/upload/" + address);
+        //1、设置response 响应头
+        resp.reset(); //设置页面不缓存,清空buffer
+        resp.setCharacterEncoding("UTF-8"); //字符编码
+        resp.setContentType("multipart/form-data"); //二进制传输数据
+        //设置响应头
+        resp.setHeader("Content-Disposition",
+                "attachment;fileName="+ URLEncoder.encode(fileName, "UTF-8"));
+        java.io.File file = new java.io.File(path,fileName);
+        //2、 读取文件--输入流
+        InputStream input=new FileInputStream(file);
+        //3、 写出文件--输出流
+        OutputStream out = resp.getOutputStream();
+        byte[] buff =new byte[1024];
+        int index=0;
+        //4、执行 写出操作
+        while((index= input.read(buff))!= -1){
+            out.write(buff, 0, index);
+            out.flush();
+        }
+        out.close();
+        input.close();
+        return "OK";
+    }
 
 }
