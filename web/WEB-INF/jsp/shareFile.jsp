@@ -38,10 +38,8 @@
             </td>
             <td width="100px">
                 <span>
-                    <form action="${pageContext.request.contextPath}/file.do" method="get">
-                        <input type="hidden" value="gotoSetShareFilePwd" name="method">
+                    <form action="${pageContext.request.contextPath}/gotoSetSharePwd" method="get">
                         <input type="hidden" value="${file.fileAddress}" name="address">
-                        <input type="hidden" value="${file.id}" name="uid">
                         <input type="hidden" value="${file.fileName}" name="name">
                         <input type="submit" value="共享">
                     </form>

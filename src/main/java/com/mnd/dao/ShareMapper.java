@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ShareMapper {
     //设置分享码
-    int setSharePwd(@Param("uid") String uid, @Param("address") String address, @Param("password") String password, @Param("name") String nam, @Param("shareAddress") String shareAddress);
+    int setSharePwd(@Param("uid") String uid, @Param("address") String address, @Param("password") String password, @Param("name") String name, @Param("shareAddress") String shareAddress);
 
     //取消分享
     int deleteFile(String address);

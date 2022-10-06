@@ -15,7 +15,7 @@
 
     <insert id="setSharePwd">
         insert into mynetdisk.share(user_id,file_address,file_password,file_share_address,file_name)
-        value (#{uid},#{address},#{password},#{shareAddress},#{name})
+        value (#{uid},#{address},#{password},#{shareAddress},#{name});
     </insert>
 
     <delete id="deleteFile">

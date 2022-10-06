@@ -21,7 +21,7 @@
 </insert>
 
 <select id="getFileByUserIdandName" resultMap="fileResultMap">
-    select f.file_name fname,f.file_size fsize,f.file_format format,f.file_address faddress,f.file_share_state fstate
+    select f.user_id,f.file_name fname,f.file_size fsize,f.file_format format,f.file_address faddress,f.file_share_state fstate
     from mynetdisk.file f
     <where>
         f.user_id = #{id}
@@ -41,9 +41,9 @@
     where f.user_id = #{id} and f.file_share_state = 0 and u.id = #{id}
 </select>
 
-<update id="updataFileState" parameterType="string">
-    update mynetdisk.file set file_share_state = ${state}
-    where file_address = ${address}
+<update id="updataFileState">
+    update mynetdisk.file set file_share_state = #{state}
+    where file_address = #{address};
 </update>
 
 <select id="getTotalUploadFileNumber" resultType="int">

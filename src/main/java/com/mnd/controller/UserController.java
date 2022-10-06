@@ -16,8 +16,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private FileController fileController;
 
     @RequestMapping("/login")
     public String login(String email, String password, HttpServletRequest req){
@@ -50,6 +48,11 @@ public class UserController {
     @RequestMapping("/toUp")
     public String toUploadFile(){
         return "uploadFile";
+    }
+
+    @RequestMapping("toDown")
+    public String toDownloadFile(){
+        return "downloadFile";
     }
 
     @RequestMapping("/toShare")

@@ -36,7 +36,7 @@
 
 <a class="file-upload" href="/toUp"><img src="/static/img/icons/upload/fileUpload-icon.svg" alt="fileUpload-icon"></a>
 <a class="file-share" href="/toShare"><img src="/static/img/icons/share/fileShareState-icon.svg" alt="share"></a>
-<a class="file-download" href="/jsp/downloadFile.jsp">文件下载</a>
+<a class="file-download" href="/toDown">文件下载</a>
 
 <!--用户已上传文件列表-->
 <table class="filelist" style="left: 108px">
@@ -84,7 +84,7 @@
                     </form>
                 </span>
                 <span>
-                    <form action="${pageContext.request.contextPath}/file.do">
+                    <form action="${pageContext.request.contextPath}/info">
                         <input type="hidden" name="address" value="${file.fileAddress}"/>
                         <input type="submit" value="信息">
                     </form>

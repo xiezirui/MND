@@ -2,10 +2,13 @@
 package com.mnd.controller;
 
 import com.mnd.pojo.File;
+import com.mnd.pojo.Share;
 import com.mnd.pojo.User;
 import com.mnd.service.FileService;
+import com.mnd.service.ShareService;
 import com.mnd.util.ByteConversion;
 import com.mnd.util.Constants;
+import com.mnd.util.GetShareFileAddress;
 import com.mnd.util.Log.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,6 +33,8 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
+    @Autowired
+    private ShareService shareService;
 
     @Autowired
     private ByteConversion byteConversion;
@@ -49,7 +54,7 @@ public class FileController {
     public String selectShare(Model model, HttpServletRequest req){
         User user = (User) req.getSession().getAttribute(Constants.USER_SESSION);
 
-        List<File> files = fileService.getFileByUserIdandName(user.getId(), null);
+        List<File> files = fileService.getShareFile(user.getId());
 
         model.addAttribute(Constants.FILES,files);
 
@@ -124,11 +129,80 @@ public class FileController {
         new java.io.File(fileUrl).delete();
         new java.io.File(fileUrlpar).delete();
 
-
         int i = fileService.deleteFile(address);
+
+        shareService.deleteFile(address);
 
         return "redirect:/selectFiles";
 
     }
 
+    @RequestMapping("info")
+    public String fileInfo(String address, Model model){
+
+        List<Share> fileInfo = shareService.getFileInfo(address);
+
+        if (fileInfo != null){
+            model.addAttribute(Constants.shareFiles,fileInfo);
+        }else {
+            model.addAttribute(Constants.MESSAGE,"文件未分享，暂时无分享信息！");
+        }
+
+        return "fileInfo";
+    }
+
+    @RequestMapping("gotoSetSharePwd")
+    public String gotoSetSharePwd(String address, String name, Model model){
+        model.addAttribute(Constants.ADDRESS_PARAMETER,address);
+        model.addAttribute(Constants.FILENAME_PARAMETER,name);
+
+        return "setShareFilePwd";
+    }
+
+    @RequestMapping("setSharePwd")
+    public String setSharePwd(String address, String name, String password, HttpServletRequest req){
+
+        User user = (User) req.getSession().getAttribute(Constants.USER_SESSION);
+
+        int i = shareService.setSharePwd(user.getId(), address, password, name, GetShareFileAddress.getAddress());
+
+        if (i == 1){
+            fileService.updataFileState(address,Constants.fileState_YES);
+        }
+
+        return "redirect:/selectFiles";
+    }
+
+    @RequestMapping("downShare")
+    @ResponseBody
+    public String downShare(String address, String password, HttpServletResponse resp , HttpServletRequest req) throws IOException {
+        Share share = shareService.getShare(address, password);
+        if (share != null){
+            //要下载的图片地址
+            String path = req.getSession().getServletContext().getRealPath("WEB-INF/upload/" + share.getFileAddress());
+            //1、设置response 响应头
+            resp.reset(); //设置页面不缓存,清空buffer
+            resp.setCharacterEncoding("UTF-8"); //字符编码
+            resp.setContentType("multipart/form-data"); //二进制传输数据
+            //设置响应头
+            resp.setHeader("Content-Disposition",
+                    "attachment;fileName="+ URLEncoder.encode(share.getFileName(), "UTF-8"));
+            java.io.File file = new java.io.File(path,share.getFileName());
+            //2、 读取文件--输入流
+            InputStream input=new FileInputStream(file);
+            //3、 写出文件--输出流
+            OutputStream out = resp.getOutputStream();
+            byte[] buff =new byte[1024];
+            int index=0;
+            //4、执行 写出操作
+            while((index= input.read(buff))!= -1){
+                out.write(buff, 0, index);
+                out.flush();
+            }
+            out.close();
+            input.close();
+
+        }
+        return "OK";
+    }
 }
