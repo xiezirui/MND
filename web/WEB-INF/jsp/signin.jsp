@@ -6,14 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page isELIgnored="false"%>
 <html>
 <head>
     <title>注册</title>
-
 </head>
 <body>
+
+    ${MESSAGE}
+
     <div>
-        <form action="${pageContext.request.contextPath}/user.do" method="get">
+        <form action="${pageContext.request.contextPath}/signin" method="get">
             <input type="hidden" name="method" value="addUser">
             <div>用户名:<input type="text" name="username"></div>
             <div>邮箱:<input type="text" name="email"></div>

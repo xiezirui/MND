@@ -9,7 +9,6 @@
 <html>
 <head>
     <title>登录</title>
-
     <link type="text/css" rel="stylesheet" href="/css/login.css">
 </head>
 <body>
@@ -26,7 +25,7 @@
             <span class="text-input"><input type="text" name="password"></span>
         </div>
         <span><input type="submit" value="登录"></span>
-        <span><input type="button" value="注册" onclick="jumpToLogon()"></span>
+        <span><a href="/toSignin">注册</a></span>
     </form>
 </div>
 

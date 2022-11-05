@@ -17,4 +17,7 @@ public interface UserMapper {
 
     //密码修改
     int pwdModify(@Param("password") String password, @Param("id") String id);
+
+    //获得是否该邮箱已经注册过账户
+    User getSignInUserByEmail(@Param("email") String email);
 }

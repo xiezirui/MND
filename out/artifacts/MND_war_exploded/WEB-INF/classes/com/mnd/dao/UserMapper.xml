@@ -25,10 +25,16 @@
     </select>
 
     <select id="getTotalUserNumber" resultType="int">
-        select count(*) from mynetdisk.user
+        select count(*)
+        from mynetdisk.user
     </select>
 
     <update id="pwdModify">
         update mynetdisk.user set user_password = #{password} where id = #{id}
     </update>
+
+    <select id="getSignInUserByEmail" resultType="User">
+        select *from mynetdisk.user
+        where user.user_email = #{email}
+    </select>
 </mapper>

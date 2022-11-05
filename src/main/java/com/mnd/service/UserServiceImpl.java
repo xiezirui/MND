@@ -37,5 +37,10 @@ public class UserServiceImpl implements UserService {
     public int pwdModify(String password, String id) {
         return userMapper.pwdModify(password,id);
     }
+
+    @Override
+    public User getSignInUserByEmail(String email) {
+        return userMapper.getSignInUserByEmail(email);
+    }
 }
 
